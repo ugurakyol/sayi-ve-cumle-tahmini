@@ -20,10 +20,62 @@ namespace YoyunGo
         public int toplam=0;
 
         public int seviye=1;
+        public string cumle = "";
+        public string cumle_1 = "ali ata bak"; 
+        public string cumle_2 = "fenerbahçe taraftarları stada akın etti."; 
+        public string cumle_3 = "ankaragücü seyircileri çıkan olaylar sonuçunda ceza aldı."; 
+        public string cumle_4 = "Uzun bir aradan sonra ilk defa Ankara böyle güzel"; 
+        public string cumle_5 = "Pandemi sürecinde yaşanan dalga sonucunda uzmanlar halkı sokağa çıkmaması konusunda uyardı."; 
 
         private void Form1_Load(object sender, EventArgs e)
         {
             getir(seviye);
+            KelimeGetir(seviye);
+        }
+
+        private void List2yeKelimeEkle(string cumle, int seviye)
+        {
+            listBox2.Items.Clear();
+            label4.Text = seviye + ". seviyedesiniz.";
+
+            string[] words = cumle.Split(' ');
+            int i = 1;
+            foreach (var word in words)
+            {
+                listBox2.Items.Add("Kelime : "+ word);
+                i++;
+            }
+            this.cumle = cumle;
+        }
+
+        private void KelimeGetir(int Seviye)
+        {
+            int sayi = 0;
+            switch (Seviye)
+            {
+
+                case 1:                    
+
+                    List2yeKelimeEkle(cumle_1, seviye);
+                    break;
+                case 2:
+
+                    List2yeKelimeEkle(cumle_2, seviye);
+                    break;
+                case 3:
+
+                    List2yeKelimeEkle(cumle_3, seviye);
+                    break;
+                case 4:
+
+                    List2yeKelimeEkle(cumle_4, seviye);
+                    break;
+                case 5:
+
+                    List2yeKelimeEkle(cumle_5, seviye);
+                    break;
+            }
+            listBox2.Sorted = true;
         }
 
         private void getir(int basamak)
@@ -127,6 +179,38 @@ namespace YoyunGo
 
         }
 
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+            KelimeGetir(seviye);
+        }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+            label3.Visible = false;
+            try
+            {
+                
+                if (cumle == textBox2.Text)
+                {
+                    label3.Text = "Tebrikler doğru tahmin. " + seviye + ". seviyeyi başarıyla geçtiniz.";
+                    label3.ForeColor = Color.DarkGreen;
+                    toplam = 0;
+                    seviye++;
+                    KelimeGetir(seviye);
+                }
+                else
+                {
+                    label3.Text = "Yanlış";
+                    label3.ForeColor = Color.Blue;
+                }
+                label3.Visible = true;
+            }
+            catch (Exception h)
+            {
+                MessageBox.Show("Lütfen metin giriniz.");
+            }
+
+        }
     }
 }
